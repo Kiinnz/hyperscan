@@ -429,7 +429,7 @@ function main5() {
 
 function tuanpca_custom_main() {
   let pcap = new pcapFile()
-  const TOTAL = 100 // total 100 packets
+  const TOTAL = 1000 // total 100 packets
   const PAYLOAD_LEN = 1342
   const VIETTEL = [0x56, 0x69, 0x65, 0x74, 0x74, 0x65, 0x6c]
   //const pattern = [0xff, 0xff, 0xfa, 0xa5, 0xf8, 0x56, 0x69, 0x65]
@@ -444,7 +444,7 @@ function tuanpca_custom_main() {
 
   for (let i = 0; i < TOTAL; i++) {
     let data = Array(PAYLOAD_LEN).fill(0xff)
-    if(i == 10) {
+    if(i % 10 == 0) {
       data.splice(0, VIETTEL.length, ...VIETTEL)
     }
 
