@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Javascript Executable</title>
+  <script type="text/javascript" src="script/stdlib.js"></script>
+  <script type="text/javascript" src="script/scriptLoader.js"></script>
+  <script type="text/javascript">
+    const loader = new scriptLoader([
+      "app/net.js",
+      "app/ip_frag.js",
+      "app/pcap.js",
+      "app/crc-gen.js",
+      "app/crc-gen-2.js",
+      "app/main.js"
+    ])
+    const printResult = (str) => {
+      let f = document.getElementById("stdout")
+      f.contentDocument.open()
+      f.contentDocument.write(str)
+      f.contentDocument.close()
+    }
+    const reload = () => {
+      loader.loadFiles(() => {
+        flush()
+        main()
+        printResult(stdout)
+      })
+    }
+    window.onload = reload
+  </script>
+</head>
+
+<body>
+  <p>Edit <i>app/main.js</i> and press <b>Reload</b> to reload application.</p>
+  <button id="exec" onclick="reload()">Reload</button>
+  <input type="file" id ="stdin">
+  <div>
+    <iframe id="stdout" title="Result page" style="resize: both; overflow: auto" allow="clipboard-write"></iframe>
+  </div>
+</body>
+
+</html>
